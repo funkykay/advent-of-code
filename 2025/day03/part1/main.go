@@ -7,7 +7,7 @@ import (
 	"os"
 )
 
-const DEBUG = true
+const DEBUG = false
 
 func main() {
 	file, err := os.Open("2025/day03/input.txt")

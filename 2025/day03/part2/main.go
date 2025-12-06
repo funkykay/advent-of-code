@@ -7,7 +7,7 @@ import (
 	"os"
 )
 
-const DEBUG = true
+const DEBUG = false
 const PICK = 12
 
 func main() {
@@ -15,7 +15,12 @@ func main() {
 	if err != nil {
 		log.Fatal(err)
 	}
-	defer file.Close()
+	defer func(file *os.File) {
+		err := file.Close()
+		if err != nil {
+
+		}
+	}(file)
 
 	scanner := bufio.NewScanner(file)
 
