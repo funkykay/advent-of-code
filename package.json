@@ -1,0 +1,8 @@
+{
+  "name": "advent-of-code",
+  "version": "1.0.0",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/funkykay/advent-of-code.git"
+  }
+}

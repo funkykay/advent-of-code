@@ -5,5 +5,8 @@
 # node
 node_modules/
 
+# python
+venv/
+
 # macOS
 .DS_Store
