@@ -2,6 +2,7 @@
 .idea/
 .vscode/
 *.iml
+out/
 
 # node
 node_modules/

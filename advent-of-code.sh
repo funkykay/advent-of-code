@@ -41,7 +41,13 @@ run_py() {
     fi
 
     PY_VERSION="$(cat .python-version | tr -d '[:space:]')"
-    PYENV_VERSION="$PY_VERSION" python "$SCRIPT_PATH"
+
+    SCRIPT_DIR="$(cd "$(dirname "$SCRIPT_PATH")" && pwd)"
+    SCRIPT_FILE="$(basename "$SCRIPT_PATH")"
+
+    cd "$SCRIPT_DIR"
+
+    PYENV_VERSION="$PY_VERSION" python "$SCRIPT_FILE"
 }
 
 run_go() {

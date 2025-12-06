@@ -15,7 +15,7 @@ if __name__ == "__main__":
         left, right = raw.split("-")
         return int(left), int(right)
 
-    with open("2025/day02/input.txt", "r", encoding="utf-8") as f:
+    with open("input.txt", "r", encoding="utf-8") as f:
         total_sum = 0
         for part in f.read().strip().split(","):
             part = part.strip()
