@@ -15,6 +15,7 @@ if [ ! -f "$SCRIPT_PATH" ]; then
 fi
 
 EXT="${SCRIPT_PATH##*.}"
+rm -rf "$PWD/out"
 
 run_js() {
     if ! command -v nvm >/dev/null 2>&1; then
@@ -64,11 +65,6 @@ run_go() {
 }
 
 run_java() {
-    if [ ! -f .sdkmanrc ]; then
-        echo ".sdkmanrc nicht gefunden"
-        exit 1
-    fi
-
     SDKMAN_DIR="${SDKMAN_DIR:-$HOME/.sdkman}"
     if [ -s "$SDKMAN_DIR/bin/sdkman-init.sh" ]; then
         . "$SDKMAN_DIR/bin/sdkman-init.sh"
@@ -89,14 +85,31 @@ run_java() {
     java "$SCRIPT_PATH"
 }
 
+run_cpp() {
+    if ! command -v g++ >/dev/null 2>&1; then
+        echo "g++ nicht verfügbar"
+        exit 1
+    fi
+
+    SCRIPT_DIR="$(cd "$(dirname "$SCRIPT_PATH")" && pwd)"
+    SCRIPT_FILE="$(basename "$SCRIPT_PATH")"
+
+    mkdir -p "$PWD/out"
+    BIN="$PWD/out/${SCRIPT_FILE%.*}"
+
+    g++ "$SCRIPT_DIR/$SCRIPT_FILE" -o "$BIN"
+    "$BIN"
+}
+
 case "$EXT" in
-    js)   run_js ;;
-    mjs)  run_js ;;
-    py)   run_py ;;
-    go)   run_go ;;
-    java) run_java ;;
+    js)    run_js ;;
+    mjs)   run_js ;;
+    py)    run_py ;;
+    go)    run_go ;;
+    java)  run_java ;;
+    cpp)   run_cpp ;;
     *)
-        echo ".$EXT wird nicht unterstützt (js mjs py go java)"
+        echo ".$EXT wird nicht unterstützt (js mjs py go java c cpp cc cxx)"
         exit 1
         ;;
 esac
